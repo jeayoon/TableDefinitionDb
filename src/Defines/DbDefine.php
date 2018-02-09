@@ -2,9 +2,8 @@
 namespace App\Defines;
 
 /**
- * CategoryDefine
+ * DbDefine
  *
- * @author jeayoon
  */
 class DbDefine
 {

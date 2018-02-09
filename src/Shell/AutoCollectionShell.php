@@ -2,14 +2,11 @@
 namespace AutoCollectionOfDB\Shell;
 
 use App\Defines\DbDefine;
+use App\Statics\DbStatic;
 use Cake\Console\Shell;
-use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Liberty\Liberty;
-use Cake\View\ViewBuilder;
 use Symfony\Component\Yaml\Yaml;
-use Cake\Filesystem\Folder;
-use Cake\Filesystem\File;
 
 class AutoCollectionShell extends Shell
 {
@@ -49,9 +46,9 @@ class AutoCollectionShell extends Shell
     private function extractMysql($dbType, $myDatabasesName)
     {
         //getTableList
-        $myTables = ConnectionManager::get('default')->schemaCollection()->listTables();
+        $myTables = DbStatic::getTableList();
 
-        $db = ConnectionManager::get('default');
+        $db = DbStatic::accessConnectionManager();
 
         $thisMySqlTable = [];
         //mysqlTable取得
@@ -157,9 +154,10 @@ class AutoCollectionShell extends Shell
     private function extractPostgres($dbType, $myDatabasesName)
     {
         //getTableList
-        $pgTables = ConnectionManager::get('default')->schemaCollection()->listTables();
+        $pgTables = DbStatic::getTableList();
 
-        $db = ConnectionManager::get('default');
+        $db = DbStatic::accessConnectionManager();
+
         $thisPgSqlTable = [];
         //tableの情報を書き込む
         foreach ($pgTables as $pgTableInd => $pgTable) {
