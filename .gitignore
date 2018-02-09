@@ -5,3 +5,4 @@
 /config/*
 .DS_Store
 phpunit.xml.dist
+.idea
