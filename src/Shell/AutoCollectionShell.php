@@ -54,7 +54,7 @@ class AutoCollectionShell extends Shell
         //mysqlTable取得
         foreach ($myTables as $myTableInd => $myTable){
             //migrationで作られたら、phinxlogテーブルが存在するので、continueで対応。
-            if ($myTable === 'phinxlog') {
+            if ($myTable === DbDefine::UNNECESSARY_TABLE) {
                 continue;
             }
             //getColumnsList
@@ -162,7 +162,7 @@ class AutoCollectionShell extends Shell
         //tableの情報を書き込む
         foreach ($pgTables as $pgTableInd => $pgTable) {
             //migrationsでテーブルを作って、DBからテーブル情報を持って来た際、いらない「phinxlog」テーブルがあり、continueで対応するもの
-            if ($pgTable === 'phinxlog') {
+            if ($pgTable === DbDefine::UNNECESSARY_TABLE) {
                 continue;
             }
             //getColumnsList
