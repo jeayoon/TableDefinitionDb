@@ -1,5 +1,5 @@
 {
-    "name": "jeayoon/TableDefinitionDb",
+    "name": "jeayoon/table-definition-db",
     "description": "TableDefinitionDb plugin for CakePHP",
     "type": "cakephp-plugin",
     "license": "MIT",

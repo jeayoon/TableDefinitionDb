@@ -33,7 +33,7 @@ class AutoCollectionShell extends Shell
             $this->extractPostgres($dbType, $myDatabasesName);
 
         } else {
-            echo "対応対象：Mysql, Postgres", PHP_EOL;
+            echo "対応DB：Mysql, Postgres", PHP_EOL;
         }
     }
 
