@@ -310,6 +310,6 @@ class AutoCollectionShell extends Shell
                 'database_type' => strtolower($dbType),
                 'tables' => $tableInfo]];
         $writeSql = Yaml::dump($sqlInformation);
-        file_put_contents(ROOT . DS . 'vendor/jeayoon/TableDefinitionDb/dbData.yml', $writeSql);
+        file_put_contents(ROOT . DS . 'vendor/jeayoon/table-definition-db/dbData.yml', $writeSql);
     }
 }
