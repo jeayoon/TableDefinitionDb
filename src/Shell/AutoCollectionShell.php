@@ -1,5 +1,5 @@
 <?php
-namespace AutoCollectionOfDB\Shell;
+namespace TableDefinitionDb\Shell;
 
 use App\Defines\DbDefine;
 use App\Statics\DbStatic;
@@ -33,7 +33,7 @@ class AutoCollectionShell extends Shell
             $this->extractPostgres($dbType, $myDatabasesName);
 
         } else {
-            echo "このShellはMysqlとPostgresしか使えません", PHP_EOL;
+            echo "対応対象：Mysql, Postgres", PHP_EOL;
         }
     }
 
@@ -58,7 +58,7 @@ class AutoCollectionShell extends Shell
                 continue;
             }
             //getColumnsList
-            $myColumnsList = Liberty::sql('AutoCollectionOfDB.columns_list', ['tableName' => $myTable]);
+            $myColumnsList = Liberty::sql('TableDefinitionDb.columns_list', ['tableName' => $myTable]);
             $myColumnsList = $db->execute($myColumnsList)->fetchAll('assoc');
 
             $thisMySqlColumns = [];
@@ -136,12 +136,13 @@ class AutoCollectionShell extends Shell
                 'columns' => $thisMySqlColumns];
         }
 
-        $mySqlInformation = ['databases' =>
-            ['name' => $myDatabasesName,
-                'database_type' => strtolower($dbType),
-                'tables' => $thisMySqlTable]];
-        $writePgSql = Yaml::dump($mySqlInformation);
-        file_put_contents(ROOT . DS . 'vendor/jeayoon/AutoCollectionOfDB/dbData.yml', $writePgSql);
+        $this->inputYaml($myDatabasesName, $dbType, $thisMySqlTable);
+//        $mySqlInformation = ['databases' =>
+//            ['name' => $myDatabasesName,
+//                'database_type' => strtolower($dbType),
+//                'tables' => $thisMySqlTable]];
+//        $writePgSql = Yaml::dump($mySqlInformation);
+//        file_put_contents(ROOT . DS . 'vendor/jeayoon/AutoCollectionOfDB/dbData.yml', $writePgSql);
     }
 
 
@@ -166,15 +167,15 @@ class AutoCollectionShell extends Shell
                 continue;
             }
             //getColumnsList
-            $pgColumnsList = Liberty::sql('AutoCollectionOfDB.columns_list', ['tableName' => $pgTable]);
+            $pgColumnsList = Liberty::sql('TableDefinitionDb.columns_list', ['tableName' => $pgTable]);
             $pgColumnsList = $db->execute($pgColumnsList)->fetchAll('assoc');
 
             //getColumnsLogicalName
-            $pgColumnsLogicalName = Liberty::sql('AutoCollectionOfDB.columns_logical_name_for_pgsql', ['tableName' => $pgTable]);
+            $pgColumnsLogicalName = Liberty::sql('TableDefinitionDb.columns_logical_name_for_pgsql', ['tableName' => $pgTable]);
             $pgColumnsLogicalName = $db->execute($pgColumnsLogicalName)->fetchAll('assoc');
 
             //getColumnsIndex
-            $pgColumnsIndex = Liberty::sql('AutoCollectionOfDB.columns_index_key_for_pgsql', ['tableName' => $pgTable]);
+            $pgColumnsIndex = Liberty::sql('TableDefinitionDb.columns_index_key_for_pgsql', ['tableName' => $pgTable]);
             $pgColumnsIndex = $db->execute($pgColumnsIndex)->fetchAll('assoc');
 
             $thisPgSqlColumns = [];
@@ -284,12 +285,31 @@ class AutoCollectionShell extends Shell
                 'columns' => $thisPgSqlColumns];
         }
 
-        $pgSqlInformation = ['databases' =>
-            ['name' => $myDatabasesName,
-                'database_type' => strtolower($dbType),
-                'tables' => $thisPgSqlTable]];
-        $writePgSql = Yaml::dump($pgSqlInformation);
-        file_put_contents(ROOT . DS . 'vendor/jeayoon/AutoCollectionOfDB/dbData.yml', $writePgSql);
+        $this->inputYaml($myDatabasesName, $dbType, $thisPgSqlTable);
+//
+//        $pgSqlInformation = ['databases' =>
+//            ['name' => $myDatabasesName,
+//                'database_type' => strtolower($dbType),
+//                'tables' => $thisPgSqlTable]];
+//        $writePgSql = Yaml::dump($pgSqlInformation);
+//        file_put_contents(ROOT . DS . 'vendor/jeayoon/TableDefinitionDb/dbData.yml', $writePgSql);
 
+    }
+
+    /**
+     * inputYaml
+     *
+     * @param $dbName
+     * @param $dbType
+     * @param $tableInfo
+     */
+    private function inputYaml($dbName, $dbType, $tableInfo)
+    {
+        $sqlInformation = ['databases' =>
+            ['name' => $dbName,
+                'database_type' => strtolower($dbType),
+                'tables' => $tableInfo]];
+        $writeSql = Yaml::dump($sqlInformation);
+        file_put_contents(ROOT . DS . 'vendor/jeayoon/TableDefinitionDb/dbData.yml', $writeSql);
     }
 }
