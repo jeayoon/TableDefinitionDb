@@ -1,8 +1,8 @@
 <?php
 namespace TableDefinitionDb\Shell;
 
-use App\Defines\DbDefine;
-use App\Statics\DbStatic;
+use TableDefinitionDb\Defines\DbDefine;
+use TableDefinitionDb\Statics\DbStatic;
 use Cake\Console\Shell;
 use Cake\Datasource\ConnectionManager;
 use Liberty\Liberty;

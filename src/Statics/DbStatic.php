@@ -1,5 +1,5 @@
 <?php
-namespace App\Statics;
+namespace TableDefinitionDb\Statics;
 
 use Cake\Datasource\ConnectionManager;
 

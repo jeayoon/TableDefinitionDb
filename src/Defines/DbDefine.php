@@ -1,5 +1,5 @@
 <?php
-namespace App\Defines;
+namespace TableDefinitionDb\Defines;
 
 /**
  * DbDefine
