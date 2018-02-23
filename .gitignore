@@ -1,8 +1,8 @@
 /composer.lock
 /phpunit.xml
 /vendor/*
-/tests/*
 /webroot/*
 /config/*
 .DS_Store
 phpunit.xml.dist
+.idea
